@@ -1,0 +1,408 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  color-scheme: dark;
+
+  --bg-base: #050505;
+  --bg-elevated: #0a0f0a;
+  --bg-overlay: rgba(16, 185, 129, 0.03);
+
+  --brand-primary: #10b981;
+  --brand-glow: #34d399;
+  --brand-secondary: #22d3ee;
+  --brand-accent: #84cc16;
+
+  --gradient-brand: linear-gradient(135deg, #10b981 0%, #22d3ee 100%);
+  --gradient-glow: radial-gradient(
+    circle at 50% 0%,
+    rgba(16, 185, 129, 0.18) 0%,
+    transparent 60%
+  );
+
+  --glass-bg: rgba(16, 185, 129, 0.04);
+  --glass-border: rgba(16, 185, 129, 0.15);
+  --glass-blur: 12px;
+
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-brand: #34d399;
+
+  --glow-brand: 0 0 40px rgba(16, 185, 129, 0.3);
+  --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+  /* FX tokens — shared by JS effects (particles, spotlight, glow) */
+  --fx-particle-rgb: 52, 211, 153;
+  --fx-spotlight-rgb: 16, 185, 129;
+  --fx-ring-track: rgba(16, 185, 129, 0.15);
+  --fx-ring: rgba(52, 211, 153, 0.9);
+  --shadow-hover: 0 20px 60px -20px rgba(16, 185, 129, 0.3);
+  --fx-loader-glow: 0 0 80px rgba(16, 185, 129, 0.15);
+  --fx-grid-line: rgba(16, 185, 129, 0.32);
+}
+
+.light {
+  color-scheme: light;
+
+  --bg-base: #fafafa;
+  --bg-elevated: #eef5ef;
+  --bg-overlay: rgba(16, 185, 129, 0.05);
+
+  --brand-primary: #059669;
+  --brand-glow: #10b981;
+  --brand-secondary: #0891b2;
+  --brand-accent: #65a30d;
+
+  --gradient-brand: linear-gradient(135deg, #059669 0%, #0891b2 100%);
+  --gradient-glow: radial-gradient(
+    circle at 50% 0%,
+    rgba(16, 185, 129, 0.14) 0%,
+    transparent 60%
+  );
+
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(16, 185, 129, 0.3);
+  --glass-blur: 12px;
+
+  --text-primary: #18181b;
+  --text-secondary: #52525b;
+  --text-muted: #71717a;
+  --text-brand: #059669;
+
+  --glow-brand: 0 0 40px rgba(16, 185, 129, 0.25);
+  --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.08);
+
+  /* FX tokens — tuned for the light background */
+  --fx-particle-rgb: 5, 150, 105;
+  --fx-spotlight-rgb: 5, 150, 105;
+  --fx-ring-track: rgba(5, 150, 105, 0.2);
+  --fx-ring: rgba(16, 185, 129, 0.9);
+  --shadow-hover: 0 20px 60px -20px rgba(5, 150, 105, 0.3);
+  --fx-loader-glow: 0 0 80px rgba(5, 150, 105, 0.18);
+  --fx-grid-line: rgba(5, 150, 105, 0.38);
+}
+
+@theme inline {
+  --color-bg-base: var(--bg-base);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-overlay: var(--bg-overlay);
+
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-glow: var(--brand-glow);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-accent: var(--brand-accent);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-brand: var(--text-brand);
+
+  --font-sans: var(--font-geist-sans), "Noto Sans SC", system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "JetBrains Mono", ui-monospace, monospace;
+}
+
+* {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.light * {
+  border-color: rgba(15, 23, 42, 0.1);
+}
+
+html {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  scroll-snap-type: y mandatory;
+  overscroll-behavior: none;
+}
+
+/* ===== Segmented scroll (all screen sizes) =====
+   Each section snaps to the top on scroll.
+   Sections grow with content (min-height, not fixed) so there's
+   no internal scroll container stealing wheel events → smooth. */
+.snap-section {
+  min-height: 100svh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+::selection {
+  background: rgba(16, 185, 129, 0.3);
+  color: var(--text-primary);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.4);
+}
+
+@layer utilities {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+  }
+
+  .text-gradient {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glow {
+    box-shadow: var(--glow-brand);
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(16, 185, 129, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(16, 185, 129, 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .bg-glow-radial {
+    background: var(--gradient-glow);
+  }
+
+  .fx-cursor-glow {
+    background: radial-gradient(
+      circle,
+      rgba(16, 185, 129, 0.12) 0%,
+      rgba(34, 211, 238, 0.05) 30%,
+      transparent 60%
+    );
+  }
+
+  .light .fx-cursor-glow {
+    background: radial-gradient(
+      circle,
+      rgba(5, 150, 105, 0.2) 0%,
+      rgba(8, 145, 178, 0.1) 30%,
+      transparent 60%
+    );
+  }
+
+  /* ===== 3D effects ===== */
+
+  .perspective-grid {
+    background-image:
+      linear-gradient(var(--fx-grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--fx-grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    transform: perspective(560px) rotateX(62deg) scale(1.35);
+    transform-origin: bottom center;
+    animation: grid-scroll 2.6s linear infinite;
+    mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent 88%);
+    -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent 88%);
+  }
+
+  .text-depth {
+    text-shadow:
+      0 1px 0 rgba(var(--fx-spotlight-rgb), 0.28),
+      0 2px 8px rgba(var(--fx-spotlight-rgb), 0.2);
+  }
+}
+
+@keyframes grid-scroll {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 48px;
+  }
+}
+
+/* 3D extruded code text */
+.code-3d {
+  position: absolute;
+  transform-style: preserve-3d;
+  will-change: transform;
+  animation: code-3d-float 18s ease-in-out infinite;
+}
+
+.code-3d-text {
+  display: block;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--brand-glow);
+  text-shadow:
+    0 1px 0 rgba(var(--fx-spotlight-rgb), 0.9),
+    0 2px 0 rgba(var(--fx-spotlight-rgb), 0.72),
+    0 3px 0 rgba(var(--fx-spotlight-rgb), 0.56),
+    0 4px 0 rgba(var(--fx-spotlight-rgb), 0.42),
+    0 5px 0 rgba(var(--fx-spotlight-rgb), 0.3),
+    0 6px 0 rgba(var(--fx-spotlight-rgb), 0.2),
+    0 8px 18px rgba(var(--fx-spotlight-rgb), 0.45);
+}
+
+@keyframes code-3d-float {
+  0%,
+  100% {
+    transform: perspective(700px) rotateY(-16deg) rotateX(5deg) translateY(0);
+  }
+  50% {
+    transform: perspective(700px) rotateY(14deg) rotateX(-4deg) translateY(-14px);
+  }
+}
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-fade-up {
+    animation: fadeUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+  }
+  100% {
+    width: 160px;
+    height: 160px;
+    opacity: 0;
+  }
+}
+
+.prose {
+  --tw-prose-body: var(--text-secondary);
+  --tw-prose-headings: var(--text-primary);
+  --tw-prose-links: var(--text-brand);
+  --tw-prose-bold: var(--text-primary);
+  --tw-prose-code: var(--text-brand);
+  --tw-prose-borders: rgba(16, 185, 129, 0.15);
+  --tw-prose-quotes: var(--text-secondary);
+  --tw-prose-quote-borders: var(--brand-primary);
+  --tw-prose-counters: var(--text-muted);
+  --tw-prose-bullets: rgba(16, 185, 129, 0.5);
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  scroll-margin-top: 6rem;
+}
+
+.prose h2 {
+  margin-top: 2.5em;
+  margin-bottom: 0.8em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.prose a {
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+  transition: border-color 0.2s;
+}
+.prose a:hover {
+  border-bottom-color: var(--brand-glow);
+}
+
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+.prose :not(pre) > code {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.prose pre {
+  background: #0d1117 !important;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.prose pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-weight: 400;
+}
+
+.prose blockquote {
+  font-style: normal;
+  background: rgba(16, 185, 129, 0.04);
+  padding: 0.8em 1.2em;
+  border-radius: 8px;
+  border-left: 3px solid var(--brand-primary);
+}
+
+.prose hr {
+  border-color: var(--glass-border);
+}
+
+.prose table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.prose th,
+.prose td {
+  border: 1px solid var(--glass-border);
+  padding: 0.5em 0.8em;
+}
+.prose th {
+  background: rgba(16, 185, 129, 0.06);
+  font-weight: 600;
+}

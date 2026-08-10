@@ -1,0 +1,84 @@
+{
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "about": "About",
+    "experience": "Experience",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "▸ Creative Developer",
+    "greeting": "Hi, I'm",
+    "title": "Crafting Digital Experiences",
+    "subtitle": "An independent developer focused on product design, code implementation, and bringing ideas to life. I document projects and thoughts here.",
+    "cta_primary": "View Projects",
+    "cta_secondary": "Get in Touch",
+    "scroll": "Scroll Down",
+    "type_lines": [
+      "system ready... ▸ loading profile",
+      "crafting digital experiences",
+      "explore · create · share"
+    ]
+  },
+  "blog": {
+    "label": "Tags",
+    "title": "Blog",
+    "subtitle": "Notes on learning, projects, and thoughts",
+    "empty": "No posts yet",
+    "read": "Read more",
+    "back": "Back to blog",
+    "toc": "Contents",
+    "comments": "Comments",
+    "post_count": "posts"
+  },
+  "about": {
+    "label": "About",
+    "title": "I'm a Product Developer",
+    "bio": "Passionate about solving real problems with code. From frontend to backend, product to design, I love taking an idea from zero to one.",
+    "location": "Location",
+    "status": "Status",
+    "status_value": "Open to collaborations",
+    "background": "Background",
+    "background_value": "Full-stack / Product Design"
+  },
+  "experience": {
+    "label": "Experience",
+    "title": "Work Experience"
+  },
+  "projects": {
+    "label": "Projects",
+    "title": "Featured Work",
+    "view": "View Project",
+    "code": "Source Code",
+    "details": "Details",
+    "back": "Back to projects",
+    "highlights": "Highlights"
+  },
+  "skills": {
+    "label": "Skills",
+    "title": "Tech Stack"
+  },
+  "contact": {
+    "label": "Contact",
+    "title": "Let's work together?",
+    "subtitle": "Whether it's project collaboration, technical exchange, or just saying hi, feel free to reach out anytime.",
+    "name": "Your name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send",
+    "sending": "Sending...",
+    "success": "Received! I'll reply soon.",
+    "error": "Failed to send. Please try again or email directly."
+  },
+  "footer": {
+    "built_with": "Built with Next.js",
+    "rights": "All rights reserved",
+    "thanks": "Thanks for visiting ▸ stay in touch",
+    "bio": "Independent developer who loves solving problems with code. Projects, tech, and life live here.",
+    "links": "Quick Links",
+    "sections": "Sections",
+    "top": "Back to top"
+  }
+}

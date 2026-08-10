@@ -1,0 +1,48 @@
+import { notFound } from "next/navigation";
+import { locales, type Locale } from "@/lib/i18n";
+import { getMessages } from "@/lib/messages";
+import { I18nProvider } from "@/components/i18n-provider";
+import { SmoothScroll } from "@/components/smooth-scroll";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { CursorGlow } from "@/components/cursor-glow";
+import { ScrollProgress } from "@/components/scroll-progress";
+import { ScrollTopButton } from "@/components/scroll-top-button";
+import { ClickRipple } from "@/components/click-ripple";
+import { BootLoader } from "@/components/boot-loader";
+import { getPersonalData } from "@/content/data";
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ lang: locale }));
+}
+
+export default async function LangLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  const locale = lang as Locale;
+  if (!locales.includes(locale)) notFound();
+  const messages = await getMessages(locale);
+  const data = await getPersonalData(locale);
+
+  return (
+    <I18nProvider locale={locale} messages={messages}>
+      <SmoothScroll>
+        <div lang={locale} className="flex-1 flex flex-col">
+          <BootLoader />
+          <ScrollProgress />
+          <ClickRipple />
+          <CursorGlow />
+          <ScrollTopButton />
+          <Navbar />
+          <main className="flex-1 flex flex-col pt-24">{children}</main>
+          <Footer socials={data.socials} />
+        </div>
+      </SmoothScroll>
+    </I18nProvider>
+  );
+}

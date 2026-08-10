@@ -1,0 +1,84 @@
+{
+  "nav": {
+    "home": "首页",
+    "blog": "博客",
+    "about": "关于",
+    "experience": "经历",
+    "skills": "技能",
+    "projects": "项目",
+    "contact": "联系"
+  },
+  "hero": {
+    "badge": "▸ 创意开发者",
+    "greeting": "你好,我是",
+    "title": "构建数字体验",
+    "subtitle": "专注于产品设计、代码实现与创意落地的独立开发者,在这里记录项目与思考。",
+    "cta_primary": "查看作品",
+    "cta_secondary": "联系我",
+    "scroll": "向下滚动",
+    "type_lines": [
+      "系统就绪... ▸ 加载个人信息",
+      "构建数字体验",
+      "探索 · 创造 · 分享"
+    ]
+  },
+  "blog": {
+    "label": "标签",
+    "title": "博客",
+    "subtitle": "记录技术学习、项目复盘与思考",
+    "empty": "暂无文章",
+    "read": "阅读全文",
+    "back": "返回博客",
+    "toc": "目录",
+    "comments": "评论",
+    "post_count": "篇文章"
+  },
+  "about": {
+    "label": "关于我",
+    "title": "我是一名产品开发者",
+    "bio": "热爱用代码解决真实问题。从前端到后端,从产品到设计,我喜欢把一个想法从 0 到 1 完整地做出来。",
+    "location": "所在地",
+    "status": "当前状态",
+    "status_value": "可接项目合作",
+    "background": "背景",
+    "background_value": "全栈 / 产品设计"
+  },
+  "experience": {
+    "label": "经历",
+    "title": "工作经历"
+  },
+  "projects": {
+    "label": "项目",
+    "title": "精选作品",
+    "view": "查看项目",
+    "code": "源代码",
+    "details": "详情",
+    "back": "返回项目",
+    "highlights": "项目亮点"
+  },
+  "skills": {
+    "label": "技能",
+    "title": "技术栈"
+  },
+  "contact": {
+    "label": "联系",
+    "title": "想合作?",
+    "subtitle": "无论是项目合作、技术交流还是单纯打招呼,都欢迎随时联系我。",
+    "name": "你的名字",
+    "email": "邮箱",
+    "message": "留言",
+    "send": "发送",
+    "sending": "发送中...",
+    "success": "已收到,会尽快回复!",
+    "error": "发送失败,请稍后再试或直接发邮件。"
+  },
+  "footer": {
+    "built_with": "使用 Next.js 构建",
+    "rights": "版权所有",
+    "thanks": "感谢浏览 ▸ 保持联系",
+    "bio": "热爱用代码解决问题的独立开发者,在这里记录项目、技术与生活。",
+    "links": "快速导航",
+    "sections": "站点栏目",
+    "top": "回到顶部"
+  }
+}
