@@ -9,6 +9,7 @@ import { AboutSection } from "@/components/sections/about";
 import { ExperienceSection } from "@/components/sections/experience";
 import { SkillsSection } from "@/components/sections/skills";
 import { ProjectsSection } from "@/components/sections/projects";
+import { LinksSection } from "@/components/sections/links";
 import { ContactSection } from "@/components/sections/contact";
 import { Particles } from "@/components/particles";
 import { TypingText } from "@/components/typing-text";
@@ -54,6 +55,7 @@ export default async function HomePage({
     { id: "experience", label: messages.nav.experience },
     { id: "skills", label: messages.nav.skills },
     { id: "projects", label: messages.nav.projects },
+    { id: "links", label: messages.nav.links },
     { id: "contact", label: messages.nav.contact },
   ];
 
@@ -122,6 +124,7 @@ export default async function HomePage({
       <ExperienceSection data={data} />
       <SkillsSection data={data} />
       <ProjectsSection data={data} />
+      <LinksSection data={data} />
       <ContactSection email={data.email} />
     </div>
   );

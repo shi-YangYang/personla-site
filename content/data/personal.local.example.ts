@@ -48,6 +48,11 @@ const override = {
     //     links: { demo: "https://...", code: "https://github.com/..." },
     //   },
     // ],
+    //
+    // 友链同理,可以整段覆盖:
+    // friendLinks: [
+    //   { name: "朋友网站", url: "https://example.com", description: "一句话介绍 TA 的网站。" },
+    // ],
   },
   en: {
     ...personalEn,

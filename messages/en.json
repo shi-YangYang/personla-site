@@ -6,6 +6,7 @@
     "experience": "Experience",
     "skills": "Skills",
     "projects": "Projects",
+    "links": "Links",
     "contact": "Contact"
   },
   "hero": {
@@ -71,6 +72,11 @@
     "sending": "Sending...",
     "success": "Received! I'll reply soon.",
     "error": "Failed to send. Please try again or email directly."
+  },
+  "links": {
+    "label": "Links",
+    "title": "Friend Links",
+    "subtitle": "Some folks worth checking out. Want to swap links? Reach out anytime."
   },
   "footer": {
     "built_with": "Built with Next.js",

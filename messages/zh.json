@@ -6,6 +6,7 @@
     "experience": "经历",
     "skills": "技能",
     "projects": "项目",
+    "links": "友链",
     "contact": "联系"
   },
   "hero": {
@@ -71,6 +72,11 @@
     "sending": "发送中...",
     "success": "已收到,会尽快回复!",
     "error": "发送失败,请稍后再试或直接发邮件。"
+  },
+  "links": {
+    "label": "友链",
+    "title": "友情链接",
+    "subtitle": "一些值得关注的小伙伴。想交换友链?随时联系我。"
   },
   "footer": {
     "built_with": "使用 Next.js 构建",

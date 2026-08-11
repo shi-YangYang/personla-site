@@ -23,6 +23,7 @@ const siteMap = [
   { path: "~/portfolio#experience", key: "nav.experience", href: "#experience" },
   { path: "~/portfolio#skills", key: "nav.skills", href: "#skills" },
   { path: "~/portfolio#projects", key: "nav.projects", href: "#projects" },
+  { path: "~/portfolio#links", key: "nav.links", href: "#links" },
   { path: "~/portfolio/blog", key: "nav.blog", href: "/blog" },
   { path: "~/portfolio#contact", key: "nav.contact", href: "#contact" },
 ] as const;

@@ -24,6 +24,7 @@ const sectionLinks = [
   { key: "nav.experience", href: "#experience" },
   { key: "nav.skills", href: "#skills" },
   { key: "nav.projects", href: "#projects" },
+  { key: "nav.links", href: "#links" },
   { key: "nav.contact", href: "#contact" },
 ] as const;
 

@@ -122,4 +122,21 @@ export const personalEn = {
       links: { code: "https://github.com/yourname/project" },
     },
   ],
+  friendLinks: [
+    {
+      name: "Example Link A",
+      url: "https://example-a.com",
+      description: "A sample friend link. Replace with a real site.",
+    },
+    {
+      name: "Example Link B",
+      url: "https://example-b.com",
+      description: "Another sample friend link.",
+    },
+    {
+      name: "Example Link C",
+      url: "https://example-c.com",
+      description: "A third sample friend link.",
+    },
+  ],
 };

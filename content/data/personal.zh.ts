@@ -72,8 +72,7 @@ export const personalZh = {
   ],
   projects: [
     {
-      slug: "project-one",
-      title: "示例项目一",
+      slug: "project-one",      title: "示例项目一",
       description: "替换为你的项目描述。介绍功能、用了什么技术、解决了什么问题。",
       longDescription: "在这里补充项目的完整背景、设计思路与实现细节,可以多写几段。",
       year: "2024",
@@ -115,6 +114,23 @@ export const personalZh = {
       tags: ["Next.js", "MDX"],
       size: "small" as const,
       links: { code: "https://github.com/yourname/project" },
+    },
+  ],
+  friendLinks: [
+    {
+      name: "示例友链 A",
+      url: "https://example-a.com",
+      description: "这是一个示例友链,记得替换成你的小伙伴。",
+    },
+    {
+      name: "示例友链 B",
+      url: "https://example-b.com",
+      description: "另一个示例友链,同样记得替换。",
+    },
+    {
+      name: "示例友链 C",
+      url: "https://example-c.com",
+      description: "第三个示例友链。",
     },
   ],
 };
