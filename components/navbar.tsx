@@ -135,10 +135,10 @@ export function Navbar() {
                       onClick={() => setDirOpen(false)}
                       className="flex items-center justify-between gap-3 px-3 py-2 rounded-lg hover:bg-brand-primary/10 transition-colors"
                     >
-                      <span className="font-mono text-sm text-text-secondary group-hover:text-text-brand">
+                      <span className="font-mono text-sm text-text-secondary group-hover:text-text-brand truncate">
                         {item.path}
                       </span>
-                      <span className="text-[10px] font-mono text-text-muted">
+                      <span className="text-[10px] font-mono text-text-muted shrink-0 whitespace-nowrap">
                         {t(item.key)}
                       </span>
                     </Link>
