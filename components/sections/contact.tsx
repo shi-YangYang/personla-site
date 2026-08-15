@@ -2,17 +2,19 @@
 
 import { useState } from "react";
 import { useT } from "../i18n-provider";
+import { useToast } from "../toast";
 import { FadeIn } from "../fade-in";
 import { SectionLabel } from "../section-label";
 import { SpotlightCard } from "../spotlight-card";
 import { BorderBeam } from "../border-beam";
 import { Code3D } from "../code-3d";
-import { Send, Check, AlertCircle } from "lucide-react";
+import { Send } from "lucide-react";
 
 type Status = "idle" | "sending" | "success" | "error";
 
 export function ContactSection({ email }: { email: string }) {
   const t = useT();
+  const showToast = useToast();
   const [status, setStatus] = useState<Status>("idle");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
@@ -28,8 +30,10 @@ export function ContactSection({ email }: { email: string }) {
       if (!res.ok) throw new Error();
       setStatus("success");
       setForm({ name: "", email: "", message: "" });
+      showToast(t("contact.success"), "success");
     } catch {
       setStatus("error");
+      showToast(t("contact.error"), "error");
     }
   };
 
@@ -81,8 +85,7 @@ export function ContactSection({ email }: { email: string }) {
               required
               multiline
             />
-            <div className="flex items-center justify-between gap-3 flex-wrap">
-              <FormStatus status={status} t={t} />
+            <div className="flex items-center justify-end gap-3">
               <button
                 type="submit"
                 disabled={status === "sending"}
@@ -145,30 +148,4 @@ function Field({
       )}
     </label>
   );
-}
-
-function FormStatus({
-  status,
-  t,
-}: {
-  status: Status;
-  t: (k: string) => string;
-}) {
-  if (status === "success") {
-    return (
-      <span className="inline-flex items-center gap-1.5 text-xs font-mono text-text-brand">
-        <Check size={14} />
-        {t("contact.success")}
-      </span>
-    );
-  }
-  if (status === "error") {
-    return (
-      <span className="inline-flex items-center gap-1.5 text-xs font-mono text-red-400">
-        <AlertCircle size={14} />
-        {t("contact.error")}
-      </span>
-    );
-  }
-  return null;
 }

@@ -17,6 +17,14 @@ services:
     environment:
       # 管理后台密码（运行时读取，强烈建议设置，否则 /admin 禁用）
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      # 联系表单邮件通知（可选，未配置时留言仍会记录到日志）
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-465}
+      SMTP_SECURE: ${SMTP_SECURE:-true}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_TO: ${SMTP_TO:-}
+      SMTP_SUBJECT_PREFIX: ${SMTP_SUBJECT_PREFIX:-【个人站留言】}
     volumes:
       # 持久化博客文章与阅读量，容器重启不丢失
       - site-content:/app/content

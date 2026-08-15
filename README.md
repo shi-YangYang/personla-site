@@ -216,6 +216,21 @@ ADMIN_PASSWORD=your-strong-password
 
 > 注意：在 Docker / 自托管场景下请确保 `content/` 目录通过 volume 持久化，否则重启容器后发布的文章会丢失。
 
+### 8. 联系表单邮件通知
+
+访客在首页「联系」区块提交的留言，可通过 SMTP 邮件发送到你的邮箱。在 `.env.local`（本地）或 `.env`（服务器）中配置：
+
+```bash
+SMTP_HOST=smtp.qq.com          # QQ 邮箱；163: smtp.163.com；企业微信: smtp.exmail.qq.com
+SMTP_PORT=465                  # SSL 端口，一般为 465
+SMTP_SECURE=true               # 465 用 true，587 用 false
+SMTP_USER=your@qq.com          # 发件邮箱（需在邮箱设置里开启 SMTP 服务）
+SMTP_PASS=your-smtp-auth-code  # 授权码（非登录密码）
+SMTP_TO=your@qq.com            # 收件邮箱（默认同 SMTP_USER，可留空）
+```
+
+> QQ 邮箱：设置 → 账号 → 开启「SMTP 服务」，会生成一个 16 位授权码，填到 `SMTP_PASS`。未配置时留言仍会记录到容器日志，不影响表单正常提交。
+
 ---
 
 ## 🐳 部署

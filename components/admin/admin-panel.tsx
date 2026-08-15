@@ -3,13 +3,14 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { LogOut, FileText, UserRound } from "lucide-react";
+import { LogOut, FileText, UserRound, Mail } from "lucide-react";
 import { SectionLabel } from "@/components/section-label";
 import { PostEditor } from "./post-editor";
 import { PersonalEditor } from "./personal-editor";
+import { MailEditor } from "./mail-editor";
 import { cn } from "@/lib/utils";
 
-type Tab = "posts" | "personal";
+type Tab = "posts" | "personal" | "mail";
 
 export function AdminPanel() {
   const router = useRouter();
@@ -63,10 +64,22 @@ export function AdminPanel() {
           icon={<UserRound size={14} />}
           label="个人信息"
         />
+        <TabButton
+          active={tab === "mail"}
+          onClick={() => setTab("mail")}
+          icon={<Mail size={14} />}
+          label="邮件通知"
+        />
       </nav>
 
       <div className="mt-8">
-        {tab === "posts" ? <PostEditor /> : <PersonalEditor />}
+        {tab === "posts" ? (
+          <PostEditor />
+        ) : tab === "personal" ? (
+          <PersonalEditor />
+        ) : (
+          <MailEditor />
+        )}
       </div>
     </div>
   );
