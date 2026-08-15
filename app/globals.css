@@ -34,6 +34,7 @@
 
   /* FX tokens — shared by JS effects (particles, spotlight, glow) */
   --fx-particle-rgb: 52, 211, 153;
+  --fx-particle-alpha: 1;
   --fx-spotlight-rgb: 16, 185, 129;
   --fx-ring-track: rgba(16, 185, 129, 0.15);
   --fx-ring: rgba(52, 211, 153, 0.9);
@@ -75,6 +76,7 @@
 
   /* FX tokens — tuned for the light background */
   --fx-particle-rgb: 5, 150, 105;
+  --fx-particle-alpha: 1.6;
   --fx-spotlight-rgb: 5, 150, 105;
   --fx-ring-track: rgba(5, 150, 105, 0.2);
   --fx-ring: rgba(16, 185, 129, 0.9);

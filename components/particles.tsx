@@ -26,12 +26,14 @@ export function Particles({ count = 40 }: { count?: number }) {
     let w = 0;
     let h = 0;
     let particleRgb = "52, 211, 153";
+    let particleAlpha = 1;
 
     const readColor = () => {
-      const v = getComputedStyle(document.documentElement)
-        .getPropertyValue("--fx-particle-rgb")
-        .trim();
+      const cs = getComputedStyle(document.documentElement);
+      const v = cs.getPropertyValue("--fx-particle-rgb").trim();
       if (v) particleRgb = v;
+      const a = cs.getPropertyValue("--fx-particle-alpha").trim();
+      if (a && !Number.isNaN(Number(a))) particleAlpha = Number(a);
     };
 
     const onResize = () => {
@@ -76,7 +78,7 @@ export function Particles({ count = 40 }: { count?: number }) {
         if (p.x > w) p.x = 0;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${particleRgb}, ${p.alpha})`;
+        ctx.fillStyle = `rgba(${particleRgb}, ${Math.min(1, p.alpha * particleAlpha)})`;
         ctx.fill();
       }
       raf = requestAnimationFrame(tick);
@@ -105,7 +107,7 @@ export function Particles({ count = 40 }: { count?: number }) {
     <canvas
       ref={canvasRef}
       aria-hidden
-      className="absolute inset-0 w-full h-full pointer-events-none"
+      className="fixed inset-0 z-0 w-full h-full pointer-events-none"
     />
   );
 }

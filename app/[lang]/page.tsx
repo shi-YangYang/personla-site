@@ -11,7 +11,6 @@ import { SkillsSection } from "@/components/sections/skills";
 import { ProjectsSection } from "@/components/sections/projects";
 import { LinksSection } from "@/components/sections/links";
 import { ContactSection } from "@/components/sections/contact";
-import { Particles } from "@/components/particles";
 import { TypingText } from "@/components/typing-text";
 import { SectionIndicator } from "@/components/section-indicator";
 import { Hero3D } from "@/components/hero-3d";
@@ -70,7 +69,6 @@ export default async function HomePage({
       >
         <div className="absolute inset-0 bg-grid opacity-30" />
         <div className="absolute inset-0 bg-glow-radial" />
-        <Particles count={45} />
         <Hero3D />
         <HeroParallax className="relative z-10 flex-1 flex items-center justify-center">
           <div className="text-center px-6 max-w-3xl mx-auto py-24">

@@ -9,6 +9,7 @@ import { CursorGlow } from "@/components/cursor-glow";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { ScrollTopButton } from "@/components/scroll-top-button";
 import { ClickRipple } from "@/components/click-ripple";
+import { Particles } from "@/components/particles";
 import { BootLoader } from "@/components/boot-loader";
 import { getPersonalData } from "@/content/data";
 
@@ -35,6 +36,7 @@ export default async function LangLayout({
         <div lang={locale} className="flex-1 flex flex-col">
           <BootLoader />
           <ScrollProgress />
+          <Particles />
           <ClickRipple />
           <CursorGlow />
           <ScrollTopButton />
