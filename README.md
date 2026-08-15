@@ -34,16 +34,12 @@
 # 1. 安装依赖
 pnpm install
 
-# 2. 配置个人信息
-cp content/data/personal.local.example.ts content/data/personal.local.ts
-# 编辑 personal.local.ts 填入你的真实信息
-
-# 3. 启动开发服务器
+# 2. 启动开发服务器
 pnpm dev
 # 打开 http://localhost:3000/zh（或 /en）
 ```
 
-搞定。网站会优先使用 `personal.local.ts` 中的数据，未覆盖的部分回退到 `personal.zh.ts` / `personal.en.ts` 中的占位内容。
+搞定。个人信息默认显示 `personal.zh.ts` / `personal.en.ts` 中的占位内容，可登录后台 `/admin`（需配置 `ADMIN_PASSWORD`）在线修改全部个人数据。
 
 ---
 
@@ -55,8 +51,7 @@ pnpm dev
 |------|------|
 | `content/data/personal.zh.ts` | 仅占位数据（示例公司、示例项目、通用简介） |
 | `content/data/personal.en.ts` | 仅占位数据 |
-| `content/data/personal.local.example.ts` | 模板，展示数据结构 |
-| `content/blog/*/getting-started.mdx` | 示例博客文章 |
+| `content/blog/*/hello-world.mdx` | 示例博客文章 |
 | `.env.example` | 仅变量名 |
 | `messages/*.json` | UI 文案（导航、按钮等）——只有语言，不含个人信息 |
 
@@ -64,30 +59,20 @@ pnpm dev
 
 | 路径 | 内容 |
 |------|------|
-| `content/data/personal.local.ts` | **你的真实信息**：姓名、邮箱、社交链接、项目描述、技能 |
+| `data/personal.local.json` | **你的真实信息**：后台在线编辑后生成 |
+| `data/views.json` | 阅读量统计 |
 | `content/blog/**/_local/` | **你的真实博客文章**（如使用此目录约定） |
 | `content/blog/**/_drafts/` | 草稿文章 |
-| `.env.local` | 环境特定配置 |
+| `.env.local` / `.env` | 环境变量（含管理密码） |
 
 ### 工作原理
 
-```
-.gitignore:
-  content/data/personal.local.ts    ← 永远不提交
-
-content/data/index.ts:
-  try {
-    personalLocal = await import("./personal.local");
-  } catch {
-    // 文件不存在 —— 回退到占位数据
-  }
-```
+个人信息通过后台 `/admin` 在线编辑，保存到 `data/personal.local.json`（被 `.gitignore` 忽略）。读取时三级回退：JSON 数据 > 占位数据（`personal.zh.ts` / `personal.en.ts`）。
 
 别人克隆你的仓库后：
 1. 只能得到占位数据
-2. 复制 `personal.local.example.ts` → `personal.local.ts`
-3. 填入自己的信息
-4. 网站就变成 TA 的了
+2. 启动后配置 `ADMIN_PASSWORD`，登录 `/admin` 填写自己的信息
+3. 网站就变成 TA 的了
 
 **你可以放心 `git add .` 和 `git commit`**——你的真实信息永远不会被提交。
 
@@ -127,8 +112,7 @@ personal-site/
 │  ├─ data/
 │  │  ├─ personal.zh.ts          # 提交的占位数据
 │  │  ├─ personal.en.ts          # 提交的占位数据
-│  │  ├─ personal.local.example.ts  # 模板
-│  │  └─ personal.local.ts       # gitignore，你的真实数据
+│  │  └─ index.ts                # 数据读取（JSON 优先，占位回退）
 │  └─ blog/
 │     ├─ zh/                     # 提交的中文示例文章
 │     └─ en/                     # 提交的英文示例文章
@@ -156,20 +140,7 @@ personal-site/
 
 ### 1. 个人信息（最常见）
 
-编辑 `content/data/personal.local.ts`。没设置的部分会回退到占位数据。
-
-```ts
-{
-  zh: {
-    name: "你的真实名字",
-    email: "your.real@email.com",
-    socials: { github: "...", linkedin: "...", ... },
-    // skills / experience / projects 也可以覆盖
-    // projects 每项需要一个唯一 slug（详情页 URL），可带 year / highlights / longDescription
-  },
-  en: { ... },
-}
-```
+登录 `/admin` 后台（需配置 `ADMIN_PASSWORD`），在「个人信息」标签页在线修改：姓名、简介、社交链接、技能、经历、项目、友链等全部字段，中英双语分开维护。保存后写入 `data/personal.local.json` 并即时生效。
 
 ### 2. UI 文案
 
@@ -240,10 +211,8 @@ ADMIN_PASSWORD=your-strong-password
 后台「个人信息」标签页可以修改全站个人数据：基本信息、社交链接、技能、工作经历、项目、友链，中英双语分开维护。
 
 - 数据保存在 `data/personal.local.json`（已被 `.gitignore` 忽略，不会进 git）
-- 首次编辑时会把现有 `content/data/personal.local.ts` 的数据加载进来，之后以 JSON 为准
+- 首次编辑时加载当前占位数据，之后以 JSON 为准
 - 保存后通过 `revalidatePath` 即时刷新首页与项目详情页
-
-> 建议：首次部署前仍可用 `cp personal.local.example.ts personal.local.ts` 初始化，之后全部在后台维护。
 
 > 注意：在 Docker / 自托管场景下请确保 `content/` 目录通过 volume 持久化，否则重启容器后发布的文章会丢失。
 
@@ -271,16 +240,7 @@ NEXT_PUBLIC_GISCUS_CATEGORY=
 NEXT_PUBLIC_GISCUS_CATEGORY_ID=
 ```
 
-**第 2 步：准备个人信息（可选）**
-
-```bash
-cp content/data/personal.local.example.ts content/data/personal.local.ts
-# 编辑填入真实信息
-```
-
-> 这一步在构建**前**做，真实信息会编译进静态页面。该文件同样被 `.gitignore` 忽略。
-
-**第 3 步：构建并启动**
+**第 2 步：构建并启动**
 
 ```bash
 docker compose up -d --build
@@ -292,16 +252,16 @@ docker compose logs -f
 docker compose down
 ```
 
-站点将运行在 `http://your-server:3000`。访问 `/admin` 用第 1 步设置的密码在线发布博客。
+站点将运行在 `http://your-server:3000`。访问 `/admin` 用第 1 步设置的密码在线发布博客、编辑个人信息。
 
 **持久化说明**
 
-`docker-compose.yml` 已用两个命名 volume 挂载 `content/`（博客文章）和 `data/`（阅读量），容器重启、重建都不丢数据：
+`docker-compose.yml` 已用两个命名 volume 挂载 `content/`（博客文章）和 `data/`（个人信息 JSON + 阅读量），容器重启、重建都不丢数据：
 
 - `site-content` → `/app/content`
 - `site-data` → `/app/data`
 
-> ⚠️ **隐私提醒**：`content/data/personal.local.ts` 会打进 Docker 镜像。如果镜像只在你的服务器本地构建使用，没有问题；但**不要把镜像推送到公共 registry**（如 Docker Hub 公开仓库）。已通过 `.dockerignore` 排除 `.env*`，密码不会进镜像。
+> ⚠️ **隐私提醒**：已通过 `.dockerignore` 排除 `.env*`，密码不会进镜像。个人信息与博客数据都存在命名 volume 中，不会打进镜像，可安全地在本地/服务器构建。
 
 ### 推荐：反向代理（Nginx / Caddy）
 

@@ -55,10 +55,7 @@ pnpm-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# 个人信息（绝不提交 - 含你的真实信息）
-content/data/personal.local.ts
-
-# 运行时数据（阅读量统计等）
+# 运行时数据（个人信息 JSON / 阅读量统计，绝不提交）
 /data
 
 # 个人博客文章（示例文章保留在 content/blog/*/，你自己的放在 _local/）
