@@ -48,7 +48,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 # content 由 volume 挂载，这里保留一个可写的初始副本（含个人占位数据与博客文章）
 COPY --from=builder --chown=nextjs:nodejs /app/content ./content
-# data 由 volume 挂载（运行时写入 personal.local.json / views.json），无需打进镜像
+# data 由 volume 挂载（运行时写入 personal.local.json / views.json），无需打进镜像，
+# 但必须显式创建并赋权给 nextjs，否则命名卷首次挂载时目录属主是 root，会导致写入失败
+RUN mkdir -p /app/data && chown -R nextjs:nodejs /app/data
 
 USER nextjs
 
