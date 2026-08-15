@@ -1,0 +1,57 @@
+# syntax=docker/dockerfile:1
+
+# ---------- 依赖安装 ----------
+FROM node:22-alpine AS deps
+RUN corepack enable
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+
+# ---------- 构建 ----------
+FROM node:22-alpine AS builder
+RUN corepack enable
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+# NEXT_PUBLIC_* 变量在构建时内联，需通过 --build-arg 传入
+ARG NEXT_PUBLIC_SITE_URL=http://localhost:3000
+ARG NEXT_PUBLIC_GISCUS_REPO=
+ARG NEXT_PUBLIC_GISCUS_REPO_ID=
+ARG NEXT_PUBLIC_GISCUS_CATEGORY=
+ARG NEXT_PUBLIC_GISCUS_CATEGORY_ID=
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ENV NEXT_PUBLIC_GISCUS_REPO=$NEXT_PUBLIC_GISCUS_REPO
+ENV NEXT_PUBLIC_GISCUS_REPO_ID=$NEXT_PUBLIC_GISCUS_REPO_ID
+ENV NEXT_PUBLIC_GISCUS_CATEGORY=$NEXT_PUBLIC_GISCUS_CATEGORY
+ENV NEXT_PUBLIC_GISCUS_CATEGORY_ID=$NEXT_PUBLIC_GISCUS_CATEGORY_ID
+ENV NEXT_TELEMETRY_DISABLED=1
+
+RUN pnpm build
+
+# ---------- 运行 ----------
+FROM node:22-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
+
+RUN addgroup --system --gid 1001 nodejs \
+  && adduser --system --uid 1001 nextjs
+
+# standalone 服务端
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+# 静态资源（standalone 不包含，需手动拷贝）
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+
+# content / data 由 volume 挂载，这里保留一个可写的初始副本
+COPY --from=builder --chown=nextjs:nodejs /app/content ./content
+COPY --from=builder --chown=nextjs:nodejs /app/data ./data
+
+USER nextjs
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]

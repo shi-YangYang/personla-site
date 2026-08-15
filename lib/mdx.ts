@@ -1,5 +1,6 @@
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
+import remarkEmoji from "remark-emoji";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
@@ -19,7 +20,7 @@ export async function renderPost(opts: {
     options: {
       parseFrontmatter: false,
       mdxOptions: {
-        remarkPlugins: [remarkGfm],
+        remarkPlugins: [remarkGfm, [remarkEmoji, { accessible: true }]],
         rehypePlugins: [
           rehypeSlug,
           [

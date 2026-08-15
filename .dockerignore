@@ -1,0 +1,42 @@
+node_modules
+.next
+out
+.git
+.gitignore
+.pnp
+.pnp.js
+
+# 测试
+coverage
+.nyc_output
+
+# 环境变量（不打进镜像，通过 docker-compose 读取 .env 注入）
+.env
+.env.local
+.env.*.local
+
+# 运行时数据（由 volume 挂载，不打进镜像）
+data
+
+# 编辑器 / IDE
+.vscode
+.idea
+*.sw?
+*.tsbuildinfo
+next-env.d.ts
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# 部署说明文件（不进镜像）
+Dockerfile
+docker-compose.yml
+.dockerignore
+README.md
+LICENSE

@@ -1,0 +1,27 @@
+services:
+  personal-site:
+    build:
+      context: .
+      args:
+        # 构建时内联变量，从宿主机 .env 读取
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+        NEXT_PUBLIC_GISCUS_REPO: ${NEXT_PUBLIC_GISCUS_REPO:-}
+        NEXT_PUBLIC_GISCUS_REPO_ID: ${NEXT_PUBLIC_GISCUS_REPO_ID:-}
+        NEXT_PUBLIC_GISCUS_CATEGORY: ${NEXT_PUBLIC_GISCUS_CATEGORY:-}
+        NEXT_PUBLIC_GISCUS_CATEGORY_ID: ${NEXT_PUBLIC_GISCUS_CATEGORY_ID:-}
+    image: personal-site:latest
+    container_name: personal-site
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # 管理后台密码（运行时读取，强烈建议设置，否则 /admin 禁用）
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+    volumes:
+      # 持久化博客文章与阅读量，容器重启不丢失
+      - site-content:/app/content
+      - site-data:/app/data
+
+volumes:
+  site-content:
+  site-data:

@@ -15,6 +15,8 @@
 - 🌐 **中英双语**——每一处文案、每一段内容都有双语版本
 - 📝 **MDX 博客**：语法高亮（Shiki）、阅读时长、文章目录（TOC）、标签聚合页
 - 💬 **评论 + 阅读量**：giscus（GitHub Discussions）评论，文章浏览量统计
+- 🔐 **在线发博**：`/admin` 后台（`ADMIN_PASSWORD` 保护），支持中英双语、Markdown 表情短代码
+- 😀 **表情支持**：文章里可写 `:rocket:` 等短代码，后台编辑器内置表情选择器
 - 🧱 **数据驱动**——改一个文件即可更新全站内容
 - 🔒 **隐私优先**——个人信息存放在被 gitignore 的本地文件中
 - ✨ **3D 特效**：透视网格地面、霓虹 3D 代码、鼠标视差、卡片 3D 倾斜、粒子、光标辉光
@@ -219,14 +221,57 @@ NEXT_PUBLIC_GISCUS_CATEGORY_ID=
 
 未配置时评论组件自动隐藏。
 
+### 6. 在线发布博客（后台）
+
+设置 `ADMIN_PASSWORD` 后即可访问 `http://localhost:3000/admin`（或服务器对应地址）：
+
+```bash
+ADMIN_PASSWORD=your-strong-password
+```
+
+- 后台支持中英双语发布（可勾选生成语言版本），一次写入 `content/blog/{zh|en}/*.mdx`
+- 支持 Markdown 表情短代码（如 `:rocket:`、`:smile:`），编辑器内置表情选择器
+- 发布后通过 `revalidatePath` 即时刷新前台页面
+- 未配置 `ADMIN_PASSWORD` 时后台自动禁用
+
+> 注意：在 Docker / 自托管场景下请确保 `content/` 目录通过 volume 持久化，否则重启容器后发布的文章会丢失。
+
 ---
 
 ## 🐳 部署
 
 ### Docker（自托管）
 
+**第 1 步：在服务器上准备环境变量**
+
+在项目根目录创建 `.env`（已被 `.gitignore` 忽略，绝不会进 git）：
+
 ```bash
-# 构建并启动
+# 管理后台密码（必填，否则 /admin 禁用）
+ADMIN_PASSWORD=your-strong-password
+
+# 站点正式域名（构建时内联进页面）
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+
+# giscus 评论（可选，留空则评论隐藏）
+NEXT_PUBLIC_GISCUS_REPO=
+NEXT_PUBLIC_GISCUS_REPO_ID=
+NEXT_PUBLIC_GISCUS_CATEGORY=
+NEXT_PUBLIC_GISCUS_CATEGORY_ID=
+```
+
+**第 2 步：准备个人信息（可选）**
+
+```bash
+cp content/data/personal.local.example.ts content/data/personal.local.ts
+# 编辑填入真实信息
+```
+
+> 这一步在构建**前**做，真实信息会编译进静态页面。该文件同样被 `.gitignore` 忽略。
+
+**第 3 步：构建并启动**
+
+```bash
 docker compose up -d --build
 
 # 查看日志
@@ -236,7 +281,16 @@ docker compose logs -f
 docker compose down
 ```
 
-站点将运行在 `http://your-server:3000`。
+站点将运行在 `http://your-server:3000`。访问 `/admin` 用第 1 步设置的密码在线发布博客。
+
+**持久化说明**
+
+`docker-compose.yml` 已用两个命名 volume 挂载 `content/`（博客文章）和 `data/`（阅读量），容器重启、重建都不丢数据：
+
+- `site-content` → `/app/content`
+- `site-data` → `/app/data`
+
+> ⚠️ **隐私提醒**：`content/data/personal.local.ts` 会打进 Docker 镜像。如果镜像只在你的服务器本地构建使用，没有问题；但**不要把镜像推送到公共 registry**（如 Docker Hub 公开仓库）。已通过 `.dockerignore` 排除 `.env*`，密码不会进镜像。
 
 ### 推荐：反向代理（Nginx / Caddy）
 
