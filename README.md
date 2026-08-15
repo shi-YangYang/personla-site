@@ -17,6 +17,7 @@
 - 💬 **评论 + 阅读量**：giscus（GitHub Discussions）评论，文章浏览量统计
 - 🔐 **在线发博**：`/admin` 后台（`ADMIN_PASSWORD` 保护），支持中英双语、Markdown 表情短代码
 - 😀 **表情支持**：文章里可写 `:rocket:` 等短代码，后台编辑器内置表情选择器
+- 👤 **在线编辑个人信息**：后台可直接修改姓名、技能、经历、项目、友链等全站个人数据
 - 🧱 **数据驱动**——改一个文件即可更新全站内容
 - 🔒 **隐私优先**——个人信息存放在被 gitignore 的本地文件中
 - ✨ **3D 特效**：透视网格地面、霓虹 3D 代码、鼠标视差、卡片 3D 倾斜、粒子、光标辉光
@@ -233,6 +234,16 @@ ADMIN_PASSWORD=your-strong-password
 - 支持 Markdown 表情短代码（如 `:rocket:`、`:smile:`），编辑器内置表情选择器
 - 发布后通过 `revalidatePath` 即时刷新前台页面
 - 未配置 `ADMIN_PASSWORD` 时后台自动禁用
+
+### 7. 在线修改个人信息
+
+后台「个人信息」标签页可以修改全站个人数据：基本信息、社交链接、技能、工作经历、项目、友链，中英双语分开维护。
+
+- 数据保存在 `data/personal.local.json`（已被 `.gitignore` 忽略，不会进 git）
+- 首次编辑时会把现有 `content/data/personal.local.ts` 的数据加载进来，之后以 JSON 为准
+- 保存后通过 `revalidatePath` 即时刷新首页与项目详情页
+
+> 建议：首次部署前仍可用 `cp personal.local.example.ts personal.local.ts` 初始化，之后全部在后台维护。
 
 > 注意：在 Docker / 自托管场景下请确保 `content/` 目录通过 volume 持久化，否则重启容器后发布的文章会丢失。
 

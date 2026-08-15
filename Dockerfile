@@ -46,9 +46,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
-# content / data 由 volume 挂载，这里保留一个可写的初始副本
+# content 由 volume 挂载，这里保留一个可写的初始副本（含个人占位数据与博客文章）
 COPY --from=builder --chown=nextjs:nodejs /app/content ./content
-COPY --from=builder --chown=nextjs:nodejs /app/data ./data
+# data 由 volume 挂载（运行时写入 personal.local.json / views.json），无需打进镜像
 
 USER nextjs
 

@@ -1,6 +1,7 @@
 import type { Locale } from "@/lib/i18n";
 import { personalZh } from "./personal.zh";
 import { personalEn } from "./personal.en";
+import { readPersonalJson } from "@/lib/personal";
 import type { personalLocal as PersonalLocalType } from "./personal.local.example";
 
 export type PersonalData = typeof personalZh;
@@ -25,9 +26,25 @@ async function loadLocal(): Promise<Record<Locale, PersonalData> | null> {
   }
 }
 
+function mergeData(locale: Locale): PersonalData {
+  const base = fallback[locale];
+  const json = readPersonalJson();
+  const override = json[locale];
+  if (!override) return base;
+  return {
+    ...base,
+    ...override,
+    socials: { ...base.socials, ...(override.socials ?? {}) },
+  } as PersonalData;
+}
+
 export async function getPersonalData(
   locale: Locale,
 ): Promise<PersonalData> {
+  const json = readPersonalJson();
+  if (json[locale]) {
+    return mergeData(locale);
+  }
   const local = await loadLocal();
   return (local?.[locale] ?? fallback[locale]) as PersonalData;
 }

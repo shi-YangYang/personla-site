@@ -1,6 +1,6 @@
 import { hasValidSession, isAdminConfigured } from "@/lib/admin";
 import { AdminLogin } from "@/components/admin/admin-login";
-import { PostEditor } from "@/components/admin/post-editor";
+import { AdminPanel } from "@/components/admin/admin-panel";
 import { AdminShell } from "@/components/admin/admin-shell";
 
 export const dynamic = "force-dynamic";
@@ -34,7 +34,7 @@ export default async function AdminPage() {
 
   return (
     <AdminShell>
-      <PostEditor />
+      <AdminPanel />
     </AdminShell>
   );
 }

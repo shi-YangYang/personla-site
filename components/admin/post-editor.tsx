@@ -1,10 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState, type FormEvent } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { LogOut, Rocket, Sparkles } from "lucide-react";
-import { SectionLabel } from "@/components/section-label";
+import { Rocket, Sparkles } from "lucide-react";
 import { EmojiPicker } from "./emoji-picker";
 import { cn } from "@/lib/utils";
 import type { EmojiItem } from "@/lib/emoji";
@@ -13,16 +10,6 @@ const inputCls =
   "w-full rounded-xl border border-brand-primary/20 bg-bg-elevated px-4 py-2.5 text-sm outline-none focus:border-brand-primary/60 transition-colors";
 
 export function PostEditor() {
-  const router = useRouter();
-
-  async function handleLogout() {
-    try {
-      await fetch("/api/admin/logout", { method: "POST" });
-    } finally {
-      router.refresh();
-    }
-  }
-
   const [slug, setSlug] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -143,33 +130,7 @@ export function PostEditor() {
   }, [content]);
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-10">
-      <header className="flex items-start justify-between gap-4">
-        <div>
-          <SectionLabel>admin</SectionLabel>
-          <h1 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight">
-            新建博客
-          </h1>
-        </div>
-        <div className="flex items-center gap-2">
-          <Link
-            href="/zh/blog"
-            className="rounded-lg border border-brand-primary/20 px-3 py-1.5 text-xs text-text-secondary hover:text-text-brand hover:border-brand-primary/40 transition-colors"
-          >
-            查看博客
-          </Link>
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-brand-primary/20 px-3 py-1.5 text-xs text-text-secondary hover:text-text-brand hover:border-brand-primary/40 transition-colors"
-          >
-            <LogOut size={12} />
-            退出
-          </button>
-        </div>
-      </header>
-
-      <form onSubmit={onSubmit} className="mt-8 space-y-5">
+    <form onSubmit={onSubmit} className="space-y-5">
         <section className="glass rounded-2xl p-6 space-y-4">
           <h2 className="text-sm font-mono uppercase tracking-wider text-text-brand">
             基本信息
@@ -323,7 +284,6 @@ export function PostEditor() {
           <Rocket size={16} />
           {saving ? "发布中..." : "发布文章"}
         </button>
-      </form>
-    </div>
+    </form>
   );
 }
