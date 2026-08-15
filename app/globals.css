@@ -300,19 +300,6 @@ body {
   }
 }
 
-@keyframes ripple {
-  0% {
-    width: 20px;
-    height: 20px;
-    opacity: 0.8;
-  }
-  100% {
-    width: 160px;
-    height: 160px;
-    opacity: 0;
-  }
-}
-
 .prose {
   --tw-prose-body: var(--text-secondary);
   --tw-prose-headings: var(--text-primary);
