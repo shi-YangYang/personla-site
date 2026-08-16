@@ -29,7 +29,7 @@ export function SpotlightCard({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className={cn(
-        "relative rounded-2xl overflow-hidden transition-colors duration-300",
+        "relative isolate rounded-2xl overflow-hidden transition-colors duration-300",
         solid
           ? "bg-bg-elevated border border-brand-primary/15"
           : "glass",
@@ -38,10 +38,10 @@ export function SpotlightCard({
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 transition-opacity duration-300"
+        className="pointer-events-none absolute inset-0 rounded-2xl transition-opacity duration-300"
         style={{
           opacity: hover ? 1 : 0,
-          background: `radial-gradient(600px circle at ${pos.x}px ${pos.y}px, rgba(var(--fx-spotlight-rgb), 0.12), transparent 40%)`,
+          background: `radial-gradient(400px circle at ${pos.x}px ${pos.y}px, rgba(var(--fx-spotlight-rgb), 0.14), transparent 70%)`,
         }}
       />
       <div className="relative">{children}</div>

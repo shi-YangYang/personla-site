@@ -48,8 +48,8 @@ export function ProjectsSection({
                 project.size === "large" && "md:col-span-2 md:row-span-2",
               )}
             >
-              <TiltCard className="h-full">
-                <BorderBeam className="rounded-2xl" duration={6} delay={i * 1.5}>
+              <TiltCard className="h-full rounded-2xl overflow-hidden">
+                <BorderBeam className="h-full rounded-2xl" duration={6} delay={i * 1.5}>
                   <SpotlightCard className="h-full" solid>
                     <ProjectCardInner
                       title={project.title}

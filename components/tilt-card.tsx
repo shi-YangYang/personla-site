@@ -39,7 +39,12 @@ export function TiltCard({
       ref={ref}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      style={{ rotateX, rotateY, transformPerspective: 1000 }}
+      style={{
+        rotateX,
+        rotateY,
+        transformPerspective: 1000,
+        transformStyle: "preserve-3d",
+      }}
       className={cn(
         "relative transition-shadow duration-300 will-change-transform",
         "hover:shadow-[var(--shadow-hover)]",
