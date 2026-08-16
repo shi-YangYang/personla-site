@@ -7,20 +7,9 @@ import { SectionLabel } from "@/components/section-label";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { locales } from "@/lib/i18n";
 import type { Metadata } from "next";
 
-export function generateStaticParams() {
-  const params: Array<{ lang: string; tag: string }> = [];
-  for (const lang of locales) {
-    const tags = new Set<string>();
-    for (const post of getAllPosts(lang)) {
-      post.tags.forEach((tag) => tags.add(tag));
-    }
-    for (const tag of tags) params.push({ lang, tag });
-  }
-  return params;
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

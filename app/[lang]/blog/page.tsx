@@ -5,11 +5,8 @@ import { BlogCard } from "@/components/blog-card";
 import { FadeIn } from "@/components/fade-in";
 import { SectionLabel } from "@/components/section-label";
 import type { Metadata } from "next";
-import { locales } from "@/lib/i18n";
 
-export function generateStaticParams() {
-  return locales.map((lang) => ({ lang }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

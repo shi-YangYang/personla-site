@@ -16,6 +16,8 @@ import { SectionIndicator } from "@/components/section-indicator";
 import { Hero3D } from "@/components/hero-3d";
 import { HeroParallax } from "@/components/hero-parallax";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: {

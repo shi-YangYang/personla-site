@@ -13,9 +13,7 @@ import { Particles } from "@/components/particles";
 import { BootLoader } from "@/components/boot-loader";
 import { getPersonalData } from "@/content/data";
 
-export function generateStaticParams() {
-  return locales.map((locale) => ({ lang: locale }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function LangLayout({
   children,

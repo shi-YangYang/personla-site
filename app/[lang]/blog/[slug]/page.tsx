@@ -1,26 +1,18 @@
 import { FadeIn } from "@/components/fade-in";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { getPost, getAllPosts } from "@/lib/blog";
+import { getPost } from "@/lib/blog";
 import { getViews } from "@/lib/views";
 import { getMessages } from "@/lib/messages";
 import { resolveLocale } from "@/lib/locale";
 import { resolveSourceMtime } from "@/lib/mdx-cache";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { locales, type Locale } from "@/lib/i18n";
 import { TableOfContents } from "@/components/table-of-contents";
 import { ViewCounter } from "@/components/view-counter";
 import { Giscus } from "@/components/giscus";
 
-export function generateStaticParams() {
-  return locales.flatMap((lang: Locale) =>
-    getAllPosts(lang).map((post) => ({
-      lang,
-      slug: post.slug,
-    })),
-  );
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

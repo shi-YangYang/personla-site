@@ -7,20 +7,10 @@ import { FadeIn } from "@/components/fade-in";
 import Link from "next/link";
 import { ArrowLeft, Calendar, ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
-import { locales } from "@/lib/i18n";
 
 const GithubIcon = FaGithub as unknown as React.FC<{ size?: number }>;
 
-export async function generateStaticParams() {
-  const out: Array<{ lang: string; slug: string }> = [];
-  for (const lang of locales) {
-    const data = await getPersonalData(lang);
-    for (const project of data.projects) {
-      out.push({ lang, slug: project.slug });
-    }
-  }
-  return out;
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
