@@ -4,13 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useT, useI18n } from "./i18n-provider";
 import { Code3D } from "./code-3d";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaQq, FaXTwitter } from "react-icons/fa6";
 import { Mail, ArrowUp } from "lucide-react";
+import { CsdnIcon } from "./csdn-icon";
 import { cn } from "@/lib/utils";
 
 const GithubIcon = FaGithub as unknown as React.FC<{ size?: number }>;
-const LinkedinIcon = FaLinkedin as unknown as React.FC<{ size?: number }>;
-const TwitterIcon = FaTwitter as unknown as React.FC<{ size?: number }>;
+const QqIcon = FaQq as unknown as React.FC<{ size?: number }>;
+const XIcon = FaXTwitter as unknown as React.FC<{ size?: number }>;
 
 const quickLinks = [
   { key: "nav.home", href: "" },
@@ -30,8 +31,9 @@ const sectionLinks = [
 
 export function Footer({ socials }: { socials: {
   github?: string;
-  linkedin?: string;
-  twitter?: string;
+  csdn?: string;
+  qq?: string;
+  x?: string;
   email?: string;
 } }) {
   const t = useT();
@@ -44,8 +46,9 @@ export function Footer({ socials }: { socials: {
 
   const items = [
     socials.github && { href: socials.github, icon: GithubIcon, label: "GitHub" },
-    socials.linkedin && { href: socials.linkedin, icon: LinkedinIcon, label: "LinkedIn" },
-    socials.twitter && { href: socials.twitter, icon: TwitterIcon, label: "Twitter" },
+    socials.csdn && { href: socials.csdn, icon: CsdnIcon, label: "CSDN" },
+    socials.qq && { href: socials.qq, icon: QqIcon, label: "QQ" },
+    socials.x && { href: socials.x, icon: XIcon, label: "X" },
     socials.email && { href: `mailto:${socials.email}`, icon: Mail, label: "Email" },
   ].filter(Boolean) as Array<{ href: string; icon: React.ComponentType<{ size?: number }>; label: string }>;
 

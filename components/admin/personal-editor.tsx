@@ -29,7 +29,7 @@ function createEmptyRecord(): PersonalDataRecord {
     location: "",
     email: "",
     siteTitle: "",
-    socials: { github: "", linkedin: "", twitter: "", wechat: "" },
+    socials: { github: "", csdn: "", qq: "", x: "" },
     skills: [],
     experience: [],
     projects: [],
@@ -171,9 +171,9 @@ export function PersonalEditor() {
           <span className={labelCls}>社交链接</span>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field label="GitHub" value={record.socials.github} onChange={(v) => updateSocial({ github: v })} />
-            <Field label="LinkedIn" value={record.socials.linkedin} onChange={(v) => updateSocial({ linkedin: v })} />
-            <Field label="Twitter" value={record.socials.twitter} onChange={(v) => updateSocial({ twitter: v })} />
-            <Field label="微信" value={record.socials.wechat} onChange={(v) => updateSocial({ wechat: v })} />
+            <Field label="CSDN" value={record.socials.csdn} onChange={(v) => updateSocial({ csdn: v })} />
+            <Field label="QQ" value={record.socials.qq} onChange={(v) => updateSocial({ qq: v })} />
+            <Field label="X" value={record.socials.x} onChange={(v) => updateSocial({ x: v })} />
           </div>
         </div>
       </section>

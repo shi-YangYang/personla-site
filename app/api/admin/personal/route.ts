@@ -36,9 +36,9 @@ function sanitizeRecord(input: unknown): PersonalDataRecord | null {
   const socialsRaw = obj.socials as Record<string, unknown> | undefined;
   base.socials = {
     github: sanitizeString(socialsRaw?.github),
-    linkedin: sanitizeString(socialsRaw?.linkedin),
-    twitter: sanitizeString(socialsRaw?.twitter),
-    wechat: sanitizeString(socialsRaw?.wechat),
+    csdn: sanitizeString(socialsRaw?.csdn),
+    qq: sanitizeString(socialsRaw?.qq),
+    x: sanitizeString(socialsRaw?.x),
   };
 
   base.skills = Array.isArray(obj.skills)

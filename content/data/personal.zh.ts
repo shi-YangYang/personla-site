@@ -9,9 +9,9 @@ export const personalZh = {
   siteTitle: "我的小站",
   socials: {
     github: "https://github.com/yourname",
-    linkedin: "https://linkedin.com/in/yourname",
-    twitter: "https://twitter.com/yourname",
-    wechat: "yourname_wx",
+    csdn: "https://blog.csdn.net/yourname",
+    qq: "https://wpa.qq.com/msgrd?v=3&uin=你的QQ号&site=qq&menu=yes",
+    x: "https://x.com/yourname",
   },
   skills: [
     {

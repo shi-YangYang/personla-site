@@ -9,9 +9,9 @@ export const personalEn = {
   siteTitle: "My Site",
   socials: {
     github: "https://github.com/yourname",
-    linkedin: "https://linkedin.com/in/yourname",
-    twitter: "https://twitter.com/yourname",
-    wechat: "yourname_wx",
+    csdn: "https://blog.csdn.net/yourname",
+    qq: "https://wpa.qq.com/msgrd?v=3&uin=your_qq&site=qq&menu=yes",
+    x: "https://x.com/yourname",
   },
   skills: [
     {

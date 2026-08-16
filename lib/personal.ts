@@ -6,9 +6,9 @@ const PERSONAL_FILE = path.join(DATA_DIR, "personal.local.json");
 
 export type SocialsData = {
   github: string;
-  linkedin: string;
-  twitter: string;
-  wechat: string;
+  csdn: string;
+  qq: string;
+  x: string;
 };
 
 export type SkillItem = { name: string; level: number };

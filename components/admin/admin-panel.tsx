@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { LogOut, FileText, UserRound, Mail } from "lucide-react";
+import { LogOut, FileText, UserRound, Mail, ArrowUp, ArrowDown } from "lucide-react";
 import { SectionLabel } from "@/components/section-label";
 import { PostEditor } from "./post-editor";
 import { PersonalEditor } from "./personal-editor";
@@ -80,6 +80,25 @@ export function AdminPanel() {
         ) : (
           <MailEditor />
         )}
+      </div>
+
+      <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-2">
+        <button
+          type="button"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="回到顶部"
+          className="flex size-10 items-center justify-center rounded-full border border-brand-primary/30 bg-bg-elevated text-text-secondary shadow-[var(--shadow-elevated)] hover:text-text-brand hover:border-brand-primary/60 transition-colors"
+        >
+          <ArrowUp size={18} />
+        </button>
+        <button
+          type="button"
+          onClick={() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" })}
+          aria-label="回到底部"
+          className="flex size-10 items-center justify-center rounded-full border border-brand-primary/30 bg-bg-elevated text-text-secondary shadow-[var(--shadow-elevated)] hover:text-text-brand hover:border-brand-primary/60 transition-colors"
+        >
+          <ArrowDown size={18} />
+        </button>
       </div>
     </div>
   );
