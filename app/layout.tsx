@@ -24,10 +24,7 @@ const notoSansSC = Noto_Sans_SC({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: "Personal Site",
-    template: "%s | Personal Site",
-  },
+  title: "Personal Site",
   description: "独立开发者的个人作品集与博客",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",

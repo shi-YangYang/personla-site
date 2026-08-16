@@ -27,7 +27,6 @@ export async function generateMetadata({
   const locale = resolveLocale(lang);
   const messages = await getMessages(locale);
   return {
-    title: messages.hero.title,
     description: messages.hero.subtitle,
     openGraph: {
       title: messages.hero.title,
