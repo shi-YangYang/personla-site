@@ -49,8 +49,8 @@ export function ProjectsSection({
               )}
             >
               <TiltCard className="h-full">
-                <BorderBeam duration={6} delay={i * 1.5}>
-                  <SpotlightCard className="h-full">
+                <BorderBeam className="rounded-2xl" duration={6} delay={i * 1.5}>
+                  <SpotlightCard className="h-full" solid>
                     <ProjectCardInner
                       title={project.title}
                       description={project.description}

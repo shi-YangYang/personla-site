@@ -6,9 +6,11 @@ import { cn } from "@/lib/utils";
 export function SpotlightCard({
   children,
   className,
+  solid,
 }: {
   children: ReactNode;
   className?: string;
+  solid?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -27,7 +29,10 @@ export function SpotlightCard({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className={cn(
-        "relative glass rounded-2xl overflow-hidden transition-colors duration-300",
+        "relative rounded-2xl overflow-hidden transition-colors duration-300",
+        solid
+          ? "bg-bg-elevated border border-brand-primary/15"
+          : "glass",
         className,
       )}
     >
