@@ -54,7 +54,7 @@ export function ExperienceSection({
                       <div className="text-sm text-text-secondary">
                         {exp.company}
                       </div>
-                      <p className="mt-3 text-sm text-text-secondary leading-relaxed">
+                      <p className="mt-3 text-sm text-text-secondary leading-relaxed whitespace-pre-line">
                         {exp.description}
                       </p>
                       <div className="mt-4 flex flex-wrap gap-1.5">

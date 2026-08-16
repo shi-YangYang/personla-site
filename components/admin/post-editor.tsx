@@ -3,6 +3,7 @@
 import { useMemo, useRef, useState, type FormEvent } from "react";
 import { Rocket, Sparkles } from "lucide-react";
 import { EmojiPicker } from "./emoji-picker";
+import { TagInput } from "./tag-input";
 import { cn } from "@/lib/utils";
 import type { EmojiItem } from "@/lib/emoji";
 
@@ -14,7 +15,7 @@ export function PostEditor() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
-  const [tags, setTags] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
   const [content, setContent] = useState("");
   const [languages, setLanguages] = useState<string[]>(["zh"]);
   const [status, setStatus] = useState<{
@@ -75,7 +76,7 @@ export function PostEditor() {
       title,
       description,
       date,
-      tags: tags.split(/[,，]/).map((t) => t.trim()).filter(Boolean),
+      tags,
       content,
       languages,
     };
@@ -101,7 +102,7 @@ export function PostEditor() {
       });
       setContent("");
       setDescription("");
-      setTags("");
+      setTags([]);
     } catch {
       setStatus({ type: "error", text: "网络错误,请重试" });
     } finally {
@@ -190,13 +191,12 @@ export function PostEditor() {
 
             <label className="block">
               <span className="mb-1.5 block text-xs text-text-secondary">
-                标签(逗号分隔)
+                标签
               </span>
-              <input
-                value={tags}
-                onChange={(e) => setTags(e.target.value)}
+              <TagInput
+                tags={tags}
+                onChange={setTags}
                 placeholder="nextjs, react, 随笔"
-                className={inputCls}
               />
             </label>
           </div>

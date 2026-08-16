@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Plus, Trash2, Save, ArrowUp, ArrowDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { TagInput } from "./tag-input";
 import type {
   PersonalDataRecord,
   SkillGroup,
@@ -471,15 +472,10 @@ function ExperienceEditor({
               />
             </div>
             <div className="space-y-1">
-              <span className={labelCls}>标签(逗号分隔)</span>
-              <input
-                value={exp.tags.join(", ")}
-                onChange={(e) =>
-                  setItem(i, {
-                    tags: e.target.value.split(/[,，]/).map((t) => t.trim()).filter(Boolean),
-                  })
-                }
-                className={inputCls}
+              <span className={labelCls}>标签</span>
+              <TagInput
+                tags={exp.tags}
+                onChange={(tags) => setItem(i, { tags })}
               />
             </div>
           </ItemShell>
@@ -574,29 +570,19 @@ function ProjectsEditor({
             </div>
 
             <div className="space-y-1">
-              <span className={labelCls}>亮点(逗号分隔)</span>
-              <input
-                value={(project.highlights ?? []).join(", ")}
-                onChange={(e) =>
-                  setItem(i, {
-                    highlights: e.target.value.split(/[,，]/).map((t) => t.trim()).filter(Boolean),
-                  })
-                }
-                className={inputCls}
+              <span className={labelCls}>亮点</span>
+              <TagInput
+                tags={project.highlights ?? []}
+                onChange={(highlights) => setItem(i, { highlights })}
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1">
-                <span className={labelCls}>标签(逗号分隔)</span>
-                <input
-                  value={project.tags.join(", ")}
-                  onChange={(e) =>
-                    setItem(i, {
-                      tags: e.target.value.split(/[,，]/).map((t) => t.trim()).filter(Boolean),
-                    })
-                  }
-                  className={inputCls}
+                <span className={labelCls}>标签</span>
+                <TagInput
+                  tags={project.tags}
+                  onChange={(tags) => setItem(i, { tags })}
                 />
               </div>
               <div className="grid grid-cols-2 gap-2">
