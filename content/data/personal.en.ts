@@ -6,6 +6,7 @@ export const personalEn = {
   bio: "Passionate about solving real problems with code. From frontend to backend, product to design, I love taking an idea from zero to one.",
   location: "Earth",
   email: "hello@example.com",
+  siteTitle: "My Site",
   socials: {
     github: "https://github.com/yourname",
     linkedin: "https://linkedin.com/in/yourname",

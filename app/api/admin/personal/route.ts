@@ -17,6 +17,7 @@ const REQUIRED_STRINGS = [
   "bio",
   "location",
   "email",
+  "siteTitle",
 ] as const;
 
 function sanitizeString(value: unknown): string {

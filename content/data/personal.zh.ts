@@ -6,6 +6,7 @@ export const personalZh = {
   bio: "热爱用代码解决真实问题。从前端到后端,从产品到设计,我喜欢把一个想法从 0 到 1 完整地做出来。",
   location: "中国",
   email: "hello@example.com",
+  siteTitle: "我的小站",
   socials: {
     github: "https://github.com/yourname",
     linkedin: "https://linkedin.com/in/yourname",

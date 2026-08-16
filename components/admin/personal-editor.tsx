@@ -28,6 +28,7 @@ function createEmptyRecord(): PersonalDataRecord {
     bio: "",
     location: "",
     email: "",
+    siteTitle: "",
     socials: { github: "", linkedin: "", twitter: "", wechat: "" },
     skills: [],
     experience: [],
@@ -153,6 +154,7 @@ export function PersonalEditor() {
           <Field label="标语" value={record.tagline} onChange={(v) => update({ tagline: v })} />
           <Field label="所在地" value={record.location} onChange={(v) => update({ location: v })} />
           <Field label="邮箱" value={record.email} onChange={(v) => update({ email: v })} />
+          <Field label="站点标题(浏览器标签页)" value={record.siteTitle} onChange={(v) => update({ siteTitle: v })} placeholder="留空则用姓名" />
         </div>
 
         <div className="space-y-1">
@@ -224,15 +226,17 @@ function Field({
   label,
   value,
   onChange,
+  placeholder,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
+  placeholder?: string;
 }) {
   return (
     <label className="block">
       <span className={labelCls}>{label}</span>
-      <input value={value} onChange={(e) => onChange(e.target.value)} className={inputCls} />
+      <input value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className={inputCls} />
     </label>
   );
 }

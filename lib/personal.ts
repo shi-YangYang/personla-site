@@ -53,6 +53,7 @@ export type PersonalDataRecord = {
   bio: string;
   location: string;
   email: string;
+  siteTitle: string;
   socials: SocialsData;
   skills: SkillGroup[];
   experience: ExperienceItem[];

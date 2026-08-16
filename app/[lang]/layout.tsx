@@ -12,8 +12,27 @@ import { ClickRipple } from "@/components/click-ripple";
 import { Particles } from "@/components/particles";
 import { BootLoader } from "@/components/boot-loader";
 import { getPersonalData } from "@/content/data";
+import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const locale = lang as Locale;
+  if (!locales.includes(locale)) return {};
+  const data = await getPersonalData(locale);
+  const siteTitle = data.siteTitle?.trim() || data.name || "Personal Site";
+  return {
+    title: {
+      default: siteTitle,
+      template: `%s | ${siteTitle}`,
+    },
+  };
+}
 
 export default async function LangLayout({
   children,
